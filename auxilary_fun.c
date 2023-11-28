@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   auxilary_fun.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:53:34 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/25 18:01:35 by nvoltair         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:13:44 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "some_header_for_printf.h"
+// #include "some_header_for_printf.h"
+#include "ft_printf.h"
+
 
 // char	ft_strchr(char *s, int c)
 // {
@@ -32,26 +34,28 @@
 // 	return (0);
 // }
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
+	return (1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
 	i = 0;
 	if (s == NULL)
-		return ;
+		return (0);
 	while (s[i] /* && s[i] != '%' */)
 	{
 		write(fd, &s[i], 1);
 		i++;
 	}
+	return (i);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(long int n, int fd)
 {
 	long	boi;
 
@@ -77,4 +81,19 @@ void	ft_putnbr_fd(int n, int fd)
 			ft_putnbr_fd(boi % 10, fd);
 		}
 	}
+}
+
+int	nbrlen(int nbr)
+{
+	int	len;
+
+	len = 0;
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
+		len++;
+	while (nbr && (len++ < __INT16_MAX__))
+		nbr /= 10;
+	// printf("MYBRO IS = %d \n", len);
+	return (len);
 }
