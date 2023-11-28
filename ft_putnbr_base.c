@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:54:15 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/27 22:04:44 by noam             ###   ########.fr       */
+/*   Updated: 2023/11/28 16:47:48 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,59 +18,70 @@ void	prt(char c)
 	write(1, &c, 1);
 }
 
-void	writestuff(long int nbr, char *base, int baselength)
+void	writestuff(unsigned long long nbr, char *base)
 {
 	char	symb;
 
-	if (nbr >= baselength)
-		writestuff(nbr / baselength, base, baselength);
-	symb = base[nbr % baselength];
+	if (nbr >= 16)
+		writestuff(nbr / 16, base);
+	symb = base[nbr % 16];
 	prt(symb);
 	while (*base != symb)
 			base++;
 }
 
-int	ft_putnbr_base(long long nbr)
+int	ft_putnbr_base(unsigned int nbr)
 {
-	int	len;
-	char hum[17] = "0123456789abcdef";
+	int		len;
+	char	*hum;
 
+	hum = "0123456789abcdef";
 	len = 0;
-	// if (nbr == -214748364)
-	// {
-	// 	write (1, "80000000", 8);
-	// 	return (8);
-	// }
 	if (nbr < 0)
 		nbr = nbr * -1;
-	// baselength = ft_strlen(base);
-	// if (baselength < 2 || check_doubles(base) == 1)
-		// return ;
-	writestuff(nbr, hum, 16);
+	writestuff(nbr, hum);
 	if (!nbr)
-		return(1);
+		return (1);
 	while (nbr && (len++ < __INT16_MAX__))
 		nbr /= 16;
 	return (len);
 }
 
-int	ft_putnbr_base_cap(long int nbr)
+int	ft_putnbr_base_cap(unsigned int nbr)
 {
-	int	len;
-	char hum[17] = "0123456789ABCDEF";
+	int		len;
+	char	*hum;
 
+	hum = "0123456789ABCDEF";
 	len = 0;
 	if (nbr < 0)
 		nbr = nbr * -1;
-	// baselength = ft_strlen(base);
-	// if (baselength < 2 || check_doubles(base) == 1)
-		// return ;
-	writestuff(nbr, hum, 16);
+	writestuff(nbr, hum);
 	if (!nbr)
-		return(1);
+		return (1);
 	while (nbr && (len++ < __INT16_MAX__))
 		nbr /= 16;
 	return (len);
+}
+
+int	ft_putnbr_base_p(unsigned long long nbr)
+{
+	int		len;
+	char	*hum;
+
+	hum = "0123456789abcdef";
+	len = 0;
+	if (nbr == 0)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	else
+		write(1, "0x", 2);
+	writestuff(nbr, hum);
+	while (nbr && (len++ < __INT16_MAX__))
+		nbr /= 16;
+	return (len + 2);
 }
 
 //0123456789ABCDEF

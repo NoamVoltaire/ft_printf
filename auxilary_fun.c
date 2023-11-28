@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   auxilary_fun.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:53:34 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/27 22:13:44 by noam             ###   ########.fr       */
+/*   Updated: 2023/11/28 16:45:57 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "some_header_for_printf.h"
 #include "ft_printf.h"
-
-
-// char	ft_strchr(char *s, int c)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (c == 0)
-// 	{
-// 		while (s[i])
-// 			i++;
-// 		return ((char )s + i);
-// 	}
-// 	while (s[i])
-// 	{
-// 		if (s[i] == (char )c)
-// 			return ((char )s + i + 1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-int	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-	return (1);
-}
 
 int	ft_putstr_fd(char *s, int fd)
 {
@@ -46,8 +18,8 @@ int	ft_putstr_fd(char *s, int fd)
 
 	i = 0;
 	if (s == NULL)
-		return (0);
-	while (s[i] /* && s[i] != '%' */)
+		return (ft_putstr_fd("(null)", 1));
+	while (s[i])
 	{
 		write(fd, &s[i], 1);
 		i++;
@@ -55,45 +27,76 @@ int	ft_putstr_fd(char *s, int fd)
 	return (i);
 }
 
-void	ft_putnbr_fd(long int n, int fd)
+void	ft_putnbr(long int n)
 {
 	long	boi;
 
 	boi = n;
 	if (boi == -2147483648)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
+		ft_putchar_fd('-');
+		ft_putchar_fd('2');
+		ft_putnbr_fd(147483648);
 	}
 	else
 	{
 		if (boi >= 0 && boi <= 9)
-			ft_putchar_fd('0' + (boi), fd);
+			ft_putchar_fd('0' + (boi));
 		else if (boi < 0)
 		{
-			ft_putchar_fd('-', fd);
-			ft_putnbr_fd(boi * -1, fd);
+			ft_putchar_fd('-');
+			ft_putnbr_fd(boi * -1);
 		}
 		else if (boi > 9)
 		{
-			ft_putnbr_fd(boi / 10, fd);
-			ft_putnbr_fd(boi % 10, fd);
+			ft_putnbr_fd(boi / 10);
+			ft_putnbr_fd(boi % 10);
 		}
 	}
 }
 
-int	nbrlen(int nbr)
+void	ft_putnbr_fd(unsigned int n)
+{
+	if (n >= 0 && n <= 9)
+		ft_putchar_fd('0' + (n));
+	else if (n < 0)
+	{
+		ft_putchar_fd('-');
+		ft_putnbr_fd(n * -1);
+	}
+	else if (n > 9)
+	{
+		ft_putnbr_fd(n / 10);
+		ft_putnbr_fd(n % 10);
+	}
+}
+
+int	nbrlen(long long nbr)
 {
 	int	len;
 
 	len = 0;
+	ft_putnbr(nbr);
 	if (nbr == 0)
 		return (1);
 	if (nbr < 0)
 		len++;
 	while (nbr && (len++ < __INT16_MAX__))
 		nbr /= 10;
-	// printf("MYBRO IS = %d \n", len);
+	return (len);
+}
+
+int	nbrlen_unsigned(long long nbr)
+{
+	int	len;
+
+	len = 0;
+	ft_putnbr_fd(nbr);
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
+		len++;
+	while (nbr && (len++ < __INT16_MAX__))
+		nbr /= 10;
 	return (len);
 }
