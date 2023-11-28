@@ -6,7 +6,7 @@
 /*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:22:03 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/28 17:05:23 by nvoltair         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:27:56 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ int	check_what_it_is(char *form, va_list args)
 {
 	if (*(form + 1) == 'c')
 		return (ft_putchar_fd(va_arg(args, int)));
-	if (*(form + 1) == 's')
+	else if (*(form + 1) == 's')
 		return (ft_putstr_fd((va_arg(args, char *)), 1));
-	if (*(form + 1) == 'p')
+	else if (*(form + 1) == 'p')
 		return (ft_putnbr_base_p(va_arg(args, unsigned long long)));
-	if (*(form + 1) == 'd' || *(form + 1) == 'i')
+	else if (*(form + 1) == 'd' || *(form + 1) == 'i')
 		return (nbrlen(va_arg(args, int)));
-	if (*(form + 1) == 'u')
+	else if (*(form + 1) == 'u')
 		return (nbrlen_unsigned(va_arg(args, unsigned int)));
-	if (*(form + 1) == 'x')
+	else if (*(form + 1) == 'x')
 		return (ft_putnbr_base(va_arg(args, int)));
-	if (*(form + 1) == 'X')
+	else if (*(form + 1) == 'X')
 		return (ft_putnbr_base_cap(va_arg(args, int)));
-	if (*(form + 1) == '%')
+	else if (*(form + 1) == '%')
 		write(1, "%", 1);
 	return (1);
 }
