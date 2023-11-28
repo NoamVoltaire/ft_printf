@@ -6,7 +6,7 @@
 /*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:22:03 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/28 16:45:42 by nvoltair         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:05:23 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ int	ft_printf(const char *form, ...)
 			i += 2;
 		}
 		else if (form[i] != '%' && form[i] != '\\' && (len++ > -1))
-		{
 			write(1, &form[i++], 1);
-		}
 	}
+	va_end (args);
 	return (len);
 }
 
