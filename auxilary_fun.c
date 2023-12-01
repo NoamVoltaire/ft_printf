@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   auxilary_fun.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:53:34 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/28 16:45:57 by nvoltair         ###   ########.fr       */
+/*   Updated: 2023/12/01 10:01:50 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	nbrlen(long long nbr)
 		return (1);
 	if (nbr < 0)
 		len++;
-	while (nbr && (len++ < __INT16_MAX__))
+	while (nbr && (len++ > -1))
 		nbr /= 10;
 	return (len);
 }
@@ -96,7 +96,7 @@ int	nbrlen_unsigned(long long nbr)
 		return (1);
 	if (nbr < 0)
 		len++;
-	while (nbr && (len++ < __INT16_MAX__))
+	while (nbr && (len++ > -1))
 		nbr /= 10;
 	return (len);
 }

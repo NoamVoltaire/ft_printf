@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:54:15 by nvoltair          #+#    #+#             */
-/*   Updated: 2023/11/28 16:47:48 by nvoltair         ###   ########.fr       */
+/*   Updated: 2023/12/01 10:01:05 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include "ft_printf.h"
 
 void	prt(char c)
 {
@@ -27,7 +26,7 @@ void	writestuff(unsigned long long nbr, char *base)
 	symb = base[nbr % 16];
 	prt(symb);
 	while (*base != symb)
-			base++;
+		base++;
 }
 
 int	ft_putnbr_base(unsigned int nbr)
@@ -42,7 +41,7 @@ int	ft_putnbr_base(unsigned int nbr)
 	writestuff(nbr, hum);
 	if (!nbr)
 		return (1);
-	while (nbr && (len++ < __INT16_MAX__))
+	while (nbr && (len++ > -1))
 		nbr /= 16;
 	return (len);
 }
@@ -59,7 +58,7 @@ int	ft_putnbr_base_cap(unsigned int nbr)
 	writestuff(nbr, hum);
 	if (!nbr)
 		return (1);
-	while (nbr && (len++ < __INT16_MAX__))
+	while (nbr && (len++ > -1))
 		nbr /= 16;
 	return (len);
 }
@@ -79,7 +78,7 @@ int	ft_putnbr_base_p(unsigned long long nbr)
 	else
 		write(1, "0x", 2);
 	writestuff(nbr, hum);
-	while (nbr && (len++ < __INT16_MAX__))
+	while (nbr && (len++ > -1))
 		nbr /= 16;
 	return (len + 2);
 }
